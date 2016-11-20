@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    build: .
+    image: node:4.6.0
     links:
       - mongo:mongo
       - redis:redis
@@ -10,15 +10,19 @@ services:
     depends_on:
       - mongo
       - redis
+    volumes:
+      - ./:/data
+    working_dir: /data
     restart: always
+    command: node app.js
   mongo:
     image: mongo:3.0.12
     volumes:
-      - ./data/mongo:/data/db
+      - ./data/mongo:/data/mongo_data
     command: --smallfiles
     restart: always
   redis:
     image: redis:3.0.7
     volumes:
-      - ./data/redis:/data
+      - ./data/redis:/data/redis_data
     restart: always
