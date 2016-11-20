@@ -10,12 +10,15 @@ services:
     depends_on:
       - mongo
       - redis
+    restart: always
   mongo:
     image: mongo:3.0.12
     volumes:
       - ./data/mongo:/data/db
     command: --smallfiles
+    restart: always
   redis:
     image: redis:3.0.7
     volumes:
       - ./data/redis:/data
+    restart: always
